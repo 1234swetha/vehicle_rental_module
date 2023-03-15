@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="rent_req_successful">
+        <t t-call="website.layout">
+            <div id="wrap3" class="oe_structure oe_empty 123">
+                <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+                    <div class="container s_allow_columns">
+                         <form action="/rent_request/submit/success" method="post" enctype="multipart/form-data"
+                              class="o_mark_required" data-mark="*" data-model_name="" data-success-page="">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <span class="d-block fa fa-4x fa-thumbs-up mx-auto rounded-circle bg-primary"></span>
+                             <center><a href="/rent_request">Back to Rental Request Page.</a></center>
+                         </form>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

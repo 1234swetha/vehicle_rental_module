@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="rent_request_action" model="ir.actions.act_window">
+            <field name="name">Rent Request</field>
+            <field name="res_model">rent.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="ir_cron_warning_action" model="ir.cron">
+            <field name="name">Rent Request Warning</field>
+            <field name="model_id" ref="model_rent_request"/>
+            <field name="code">model.onchange_from_date()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="rent_request_view_tree" model="ir.ui.view">
+            <field name="name">rent.request.tree</field>
+            <field name="model">rent.request</field>
+            <field name="arch" type="xml">
+                <tree string="Rent Request">
+                    <field name="reference_no"/>
+                    <field name="partner_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="rent_request_view_form" model="ir.ui.view">
+            <field name="name">rent.request.form</field>
+            <field name="model">rent.request</field>
+            <field name="arch" type="xml">
+                <form string="Rent request">
+                    <header>
+                        <button name="button_confirmed" class="oe_highlight" states="Draft" string="Confirmed"
+                                type="object"/>
+                        <button name="button_returned" class="oe_highlight" states="Invoiced" string="Returned"
+                                type="object"/>
+                        <button name="button_invoice" class="oe_highlight" states="Confirmed" string="Invoiced"
+                                type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Confirmed,Returned"/>
+                    </header>
+                    <sheet>
+                        <div name="button_box" position="inside">
+                            <button class="oe_stat_button" type="object" name="get_invoice"
+                                    icon="fa-pencil-square-o" string="Invoice"
+                                    attrs="{'invisible': ['|',('state','=','Draft'), ('state','=','Confirmed')]}">
+                            </button>
+                        </div>
+                        <div>
+                            <widget name="web_ribbon" text="Paid"
+                                    attrs="{'invisible': [('paid','=',False)] }"/>
+                            <h1>
+                                <field name="reference_no"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="partner_address"/>
+                                <field name="vehicle_id"/>
+                            </group>
+                            <group>
+                                <field name="request_date"/>
+                                <field name="charge_id"
+                                       options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="Other Info">
+                                <group>
+                                    <field name="from_date"/>
+                                    <field name="to_date"/>
+                                    <field name="period"/>
+                                    <field name="amount_id"/>
+                                    <field name="rent"/>
+                                    <field name="paid"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="sequence_rent_request" model="ir.sequence">
+            <field name="name">Rent Request Sequence</field>
+            <field name="code">rent.request</field>
+            <field name="prefix">R</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>
+
+

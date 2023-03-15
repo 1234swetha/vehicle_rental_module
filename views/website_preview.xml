@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <template id="portal_my_rental_request" name="My Rental Requests" inherit_id="portal.portal_my_home">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="title">Rental Requests</t>
+                    <t t-set="url" t-value="'/my/requests'"/>
+                    <t t-set="placeholder_count" t-value="'rental_count'"/>
+                </t>
+            </xpath>
+        </template>
+        <template id="portal_my_requests" name="Rental Requests">
+            <t t-call="portal.portal_layout">
+                <t t-set="breadcrumbs_searchbar" t-value="True"/>
+                <t t-call="portal.portal_searchbar">
+                    <t t-set="title">Requests</t>
+                </t>
+                 <t t-if="requests" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-center">Requests</th>
+                        <th class="text-center">Vehicle</th>
+                        <th class="text-center">Request Date</th>
+                        <th class="text-center">From Date</th>
+                        <th class="text-center">To Date</th>
+                        <th class="text-center">Total</th>
+                    </tr>
+                </thead>
+                     <t t-foreach="requests" t-as="requests">
+                    <tr>
+                        <td class="text-center"><span t-field="requests.reference_no"/></td>
+                        <td class="text-center"><span t-field="requests.vehicle_id"/></td>
+                        <td class="text-center"><span t-field="requests.request_date"/></td>
+                        <td class="text-center"><span t-field="requests.from_date"/></td>
+                        <td class="text-center"><span t-field="requests.to_date"/></td>
+                        <td class="text-center"><span t-field="requests.amount_id"/></td>
+                    </tr>
+                     </t>
+                 </t>
+            </t>
+        </template>
+    </data>
+</odoo>

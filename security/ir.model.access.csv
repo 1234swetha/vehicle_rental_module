@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_vehicle_rental,access_vehicle_rental,model_vehicle_rental,base.group_user,1,1,1,1
+access_fleet_vehicle,access_fleet_vehicle,model_fleet_vehicle,base.group_user,1,1,1,1
+access_rent_request,access_rent_request,model_rent_request,base.group_user,1,1,1,1
+access_rent_charge,access_rent_charge,model_rent_charge,base.group_user,1,1,1,1
+access_rental_report_wizard,access_rental_report_wizard,model_rental_report_wizard,base.group_user,1,1,1,1
+
+
+
+

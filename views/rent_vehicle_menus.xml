@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="vehicle_rental_menu_root" name="Vehicle Rental">
+            <menuitem id="vehicle_rental_first_level_menu" name="Rent Vehicle">
+                <menuitem id="vehicle_rental_menu_action" action="vehicle_rental_action"/>
+            </menuitem>
+            <menuitem id="rent_request_first_level_menu" name="Rent Request">
+                <menuitem id="rent_request_menu_action" action="rent_request_action"/>
+            </menuitem>
+            <menuitem id="rental_report_first_level_menu" name="Vehicle Rental Report">
+                <menuitem id="rental_report_menu_action" action="rental_report_action"/>
+            </menuitem>
+
+        </menuitem>
+    </data>
+</odoo>

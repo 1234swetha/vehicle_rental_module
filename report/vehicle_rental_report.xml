@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_vehicle_rental_report" model="ir.actions.report">
+            <field name="name">Vehicle Rental Report</field>
+            <field name="model">vehicle.rental</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">vehicle_rental.vehicle_rental_report</field>
+            <field name="report_file">vehicle_rental.vehicle_rental_report</field>
+        </record>
+        <template id="vehicle_rental_report">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <div class="page" align="center">
+                        <h2>Vehicle Rental Report</h2>
+                    </div>
+                    <br></br>
+                    <div>
+                        <p t-if="vehicle_name">Vehicle:<span t-esc="vehicle_name"/></p>
+                        <p t-if="from_date">From Date:<span t-esc="from_date"/></p>
+                        <p t-if="to_date">To Date:<span t-esc="to_date"/></p>
+                    </div>
+                    <br></br>
+                    <table border="1" class="table" align="center">
+                        <tr>
+                            <th>Sl.no</th>
+                            <th>Customer</th>
+                            <th>Period</th>
+                            <th>Model</th>
+                            <th>State</th>
+                        </tr>
+                        <t t-set="j" t-value="1" />
+                        <t t-foreach="sql_data" t-as="i">
+                            <tr>
+                                <td align="center">
+                                    <span t-esc="j"/>
+                                    <t t-set="j" t-value="j+1"/>
+                                </td>
+                                <td align="center">
+                                    <t t-esc="i['customer']"/>
+                                </td>
+                                <td align="center">
+                                    <t t-esc="i['period']"/>
+                                </td>
+                                <td align="center">
+                                    <t t-esc="i['model']"/>
+                                </td>
+                                <td align="center">
+                                    <t t-esc="i['state']"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

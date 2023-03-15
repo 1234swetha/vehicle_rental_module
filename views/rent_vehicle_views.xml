@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="vehicle_rental_action" model="ir.actions.act_window">
+            <field name="name">Rent Vehicle</field>
+            <field name="res_model">vehicle.rental</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{"search_default_state":1}</field>
+        </record>
+        <record id="vehicle_rental_view_tree" model="ir.ui.view">
+            <field name="name">vehicle.rental.tree</field>
+            <field name="model">vehicle.rental</field>
+            <field name="arch" type="xml">
+                <tree string="Rent vehicle" decoration-danger="late == True" decoration-warning="warning == True" >
+                    <field name="vehicle_id"/>
+                    <field name="brand"/>
+                    <field name="state"/>
+                    <field name="late" optional="hide"/>
+                    <field name="warning" optional="hide"/>
+                    <field name="rent" widget="monetary" optional="hide"/>
+                    <field name="model_year" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+        <record id="vehicle_rental_view_form" model="ir.ui.view">
+            <field name="name">vehicle.rental.form</field>
+            <field name="model">vehicle.rental</field>
+            <field name="arch" type="xml">
+                <form string="Rent vehicle">
+                    <header>
+                        <button name="button_not_available" class="oe_highlight" states="available"
+                                string="not available" type="object"/>
+                        <button name="button_available" class="oe_highlight" states="not available"
+                                string="available" type="object"/>
+                        <button name="button_sold" class="oe_highlight" states="not available" string="sold"
+                                type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="available,not available,sold"/>
+                    </header>
+                    <sheet>
+                        <record id="vehicle_rental_smart_button" model="ir.ui.view">
+                            <div name="button_box" position="inside">
+                                <button class="oe_stat_button" type="object" name="get_requests"
+                                        icon="fa-car">
+                                    <field string="Vehicle" name="rent_request_count" widget="statinfo"/>
+                                </button>
+                            </div>
+                        </record>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="vehicle_id"/>
+                                <field name="brand"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="rent" widget="monetary"/>
+                            </group>
+                            <group>
+                                <field name="registration_date"/>
+                                <field name="model_year"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="Rent Request">
+                                <field name="rent_req_ids"/>
+                            </page>
+                            <page name="Rent Charges">
+                                <field name="charge_ids"/>
+                            </page>
+                            <page name="Other Info">
+                                <group>
+                                    <field name="warning"/>
+                                    <field name="late"/>
+                                    <field name="image" widget="image"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="vehicle_rental_view_search" model="ir.ui.view">
+            <field name="name">vehicle.rental.search</field>
+            <field name="model">vehicle.rental</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="name"/>
+                    <field name="brand"/>
+                    <separator/>
+                    <filter string="Available" name="state" domain="[('state', '=', 'available')]"/>
+                    <filter string="Not Available" name="statenot" domain="[('state', '=', 'not available')]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Model year" name="model year" context="{'group_by':'model_year'}"/>
+                        <filter string="Brand" name="brand" context="{'group_by':'brand'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

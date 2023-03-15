@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="rent_charge_action" model="ir.actions.act_window">
+            <field name="name">Rent Charge</field>
+            <field name="res_model">rent.charge</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <record id="rent_charge_view_tree" model="ir.ui.view">
+            <field name="name">rent.charge.tree</field>
+            <field name="model">rent.charge</field>
+            <field name="arch" type="xml">
+                <tree string="Rent Charge" editable="bottom">
+                    <field name="time"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>
